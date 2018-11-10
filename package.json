@@ -12,19 +12,23 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cookie-parser": "~1.4.3",
+    "css-loader": "^0.28.11",
     "debug": "~2.6.9",
     "ejs": "^2.6.1",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "less-loader": "^4.1.0",
     "mongoose": "^5.3.11",
     "morgan": "~1.9.0",
+    "sass-loader": "^7.1.0",
     "vue": "^2.5.2",
     "vue-infinite-scroll": "^2.0.2",
     "vue-infinity-scroll": "^1.1.5",
     "vue-lazyload": "^1.2.6",
     "vue-resource": "^1.5.1",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

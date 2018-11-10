@@ -20,7 +20,7 @@ mongoose.connection.on("disconnected", function () {
   console.log("连接断开")
 })
 
-
+// 查询商品列表
 router.get("/", (req, res, next) => {
 	// 查询数据库
 	// find 两个参数 查找条件 回调
@@ -109,6 +109,30 @@ router.get("/", (req, res, next) => {
 	// 	}
 	// })
 
-})
+});
+
+
+// var User = require('../models/user.js');
+
+// // 加入购物车
+// router.post("/goods/addCart",(req,res,next)=>{
+// 	var userId = "100000077"; // 假设已经登陆 用户id
+// 	var productId = req.body.productId; // 商品id
+// 	User.findOne({userId:userId},(err,doc)=>{
+// 		if(err){
+// 			res.json({
+// 				status:"1",
+// 				msg:err.message
+// 			})
+// 		}else{
+// 			console.log(doc);
+// 			if(doc){
+
+// 			}
+// 		}
+// 	})
+
+
+// })
 
 module.exports = router;

@@ -31,10 +31,13 @@
                 </div>
             </div>
         </div>
+        
+
     </header>
     
 </template>
 <script>
+    // import Modal from '@/base/modal/modal';
     export default {
         data() {
             return {};
