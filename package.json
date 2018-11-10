@@ -17,8 +17,11 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "mongoose": "^5.3.11",
     "morgan": "~1.9.0",
     "vue": "^2.5.2",
+    "vue-infinite-scroll": "^2.0.2",
+    "vue-infinity-scroll": "^1.1.5",
     "vue-lazyload": "^1.2.6",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1"

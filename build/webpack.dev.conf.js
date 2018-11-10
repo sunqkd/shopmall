@@ -12,15 +12,13 @@ const portfinder = require('portfinder')
 
 
 // 模拟后台数据
-var goodsData = require('../mock/goods.json')
-// console.log(goodsData)
-const express = require('express')
-const app = express()//请求server
-var router = express.Router()
-app.use('/api',router)
-// router.get("/goods",function(req,res,next){
+// var goodsData = require('../mock/goods.json')
+// // console.log(goodsData)
+// const express = require('express')
+// const app = express()//请求server
+// var router = express.Router()
+// app.use('/api',router)
 
-// })
 
 
 const HOST = process.env.HOST
@@ -58,14 +56,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 	},
 	
 	// 路由数据
-	before(app){
-		app.get('/api/goods', (req, res, next) => {
-			res.json({
-			  errno: 0,
-			  data: goodsData
-			})//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
-		})
-	}
+	// before(app){
+	// 	app.get('/api/goods', (req, res, next) => {
+	// 		res.json({
+	// 		  errno: 0,
+	// 		  data: goodsData
+	// 		})//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+	// 	})
+	// }
   },
   plugins: [
     new webpack.DefinePlugin({
