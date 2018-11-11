@@ -19,7 +19,7 @@
                     <!--<a href="/" class="navbar-link">我的账户</a>-->
                     <span class="navbar-link" v-if="nickname">{{nickname}}</span>
                     <a href="javascript:void(0)" class="navbar-link" @click="loginbutton()" v-if="!nickname">Login</a>
-                    <a href="javascript:void(0)" class="navbar-link">Logout</a>
+                    <a href="javascript:void(0)" class="navbar-link" @click="logout()">Logout</a>
                     <div class="navbar-cart-container">
                         <span class="navbar-cart-count"></span>
                         <a class="navbar-link navbar-cart-link" href="/#/cart">
@@ -77,7 +77,18 @@
                 nickname:'' // 用户名
             };
         },
+        mounted(){
+            this.checklogin(); // 检查是否登陆
+        },
         methods:{
+            checklogin(){  // 检查当前用户是否登陆
+                axios.get("/users/checkLogin").then( (response) => {
+                    let res = response.data;
+                    if(res.status == '0'){  // 表明已经登陆成功
+                        this.nickname = res.result
+                    }
+                })
+            },
             login(){ // 登陆
                 // 前端校验
 
@@ -106,6 +117,14 @@
             },
             closeModel(){
                  this.loginModalFlag = false;
+            },
+            logout(){ // 登出
+                axios.post('/users/loginout').then((response)=>{
+                    let res = response.data;
+                    if(res.status == 0){
+                        this.nickname = "";
+                    }
+                })
             }
 
         }

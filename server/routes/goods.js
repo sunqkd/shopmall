@@ -21,7 +21,7 @@ mongoose.connection.on("disconnected", function () {
 })
 
 // 查询商品列表
-router.get("/", (req, res, next) => {
+router.get("/list", (req, res, next) => {
 	// 查询数据库
 	// find 两个参数 查找条件 回调
 	let page = parseInt(req.param("page")) ; // 第几页

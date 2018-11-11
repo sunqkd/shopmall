@@ -22,6 +22,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
+// 捕获登陆
+app.use(function(req,res,next){
+    if(req.cookies.userId){ // 说明已经登陆
+		next(); // 继续向后走
+	}else{
+		console.log(`${req.path} --- ${req.originalUrl}`);
+		if(req.originalUrl == '/users/login' || req.originalUrl == '/users/loginout' || req.path =='/goods/list'){
+			next();
+		}else{
+			res.json({
+				status:"10001",
+				msg:'当前未登录',
+				result:''
+			})
+		}
+	}
+
+});
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/goods', goodsRouter);

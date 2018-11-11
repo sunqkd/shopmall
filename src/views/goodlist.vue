@@ -130,7 +130,7 @@
                     priceLevel:this.priceChecked
                 }
                 this.loading = true;
-                axios.get("/goods",{
+                axios.get("/goods/list",{
                     params:param
                 }).then( (res) => {
                     this.loading = false;
@@ -180,7 +180,7 @@
                     productId:productId
                 }).then((res)=>{
                     console.log(res);
-                    alert("添加成功");
+                    // alert("添加成功");
                 })
 
             }
