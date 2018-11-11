@@ -125,39 +125,67 @@ router.post("/addCart",(req,res,next)=>{
 				msg:err.message
 			})
 		}else{
-			console.log(userdoc);
+			// console.log(userdoc);
 			if(userdoc){
-				Goods.findOne({productId:productId},function(err1,gooddoc){
-					if(err1){
-						res.json({
-							status:"1",
-							msg:err1.message
-						})
-					}else{
-						if(gooddoc){
-							// 如果goods 数据库中不存在 下面的字段 则不会保存到goods数据库中
-							gooddoc.productNum = 1; // 加一个数量单位 默认为1
-							gooddoc.checked = 1; // 选中状态
-
-							// 加入到数据库中
-							userdoc.cartList.push(gooddoc);
-							userdoc.save(function(err2,doc2){
-								if(err2){
-									res.json({
-										status:"1",
-										msg:err2.message
-									})
-								}else{
-									res.json({
-										status:"0",
-										msg:'',
-										result:'success save'
-									})
-								}
-							})
-						}
+				let goodsItem = ''; // 
+				userdoc.cartList.forEach((item)=>{
+					if(item.productId == productId){ // 说明已经添加过此商品 之要求数量上加一就可
+						goodsItem = item; // 把这条信息保存起来
+						item.productNum++;
 					}
 				})
+
+				if(goodsItem){  // 表示购物车中已经有此商品
+					userdoc.save(function(err,doc){ // 跟新数据库
+						if(err){
+							res.json({
+								status:'1',
+								msg:err.message
+							})
+						}else{
+							res.json({
+								status:'0',
+								msg:'',
+								result:'增加商品 数量成功'
+							})
+						}
+					})
+
+				}else{ // 表示购物车里面没有此试商品  需要添加新的商品
+					Goods.findOne({productId:productId},function(err1,gooddoc){
+						if(err1){
+							res.json({
+								status:"1",
+								msg:err1.message
+							})
+						}else{
+							if(gooddoc){
+								// 如果goods 数据库中不存在 下面的字段 则不会保存到goods数据库中
+								gooddoc.productNum = 1; // 加一个数量单位 默认为1
+								gooddoc.checked = 1; // 选中状态
+	
+								// 加入到数据库中
+								userdoc.cartList.push(gooddoc);
+								userdoc.save(function(err2,doc2){
+									if(err2){
+										res.json({
+											status:"1",
+											msg:err2.message
+										})
+									}else{
+										res.json({
+											status:"0",
+											msg:'',
+											result:'添加新商品 成功'
+										})
+									}
+								})
+							}
+						}
+					})
+				}
+
+				
 			}
 		}
 	})
