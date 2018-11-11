@@ -112,27 +112,56 @@ router.get("/", (req, res, next) => {
 });
 
 
-// var User = require('../models/user.js');
+var User = require('../models/user.js');
 
-// // 加入购物车
-// router.post("/goods/addCart",(req,res,next)=>{
-// 	var userId = "100000077"; // 假设已经登陆 用户id
-// 	var productId = req.body.productId; // 商品id
-// 	User.findOne({userId:userId},(err,doc)=>{
-// 		if(err){
-// 			res.json({
-// 				status:"1",
-// 				msg:err.message
-// 			})
-// 		}else{
-// 			console.log(doc);
-// 			if(doc){
+// 加入购物车
+router.post("/addCart",(req,res,next)=>{
+	var userId = "100000077"; // 假设已经登陆 用户id
+	var productId = req.body.productId; // 商品id
+	User.findOne({userId:userId},(err,userdoc)=>{
+		if(err){
+			res.json({
+				status:"1",
+				msg:err.message
+			})
+		}else{
+			console.log(userdoc);
+			if(userdoc){
+				Goods.findOne({productId:productId},function(err1,gooddoc){
+					if(err1){
+						res.json({
+							status:"1",
+							msg:err1.message
+						})
+					}else{
+						if(gooddoc){
+							// 如果goods 数据库中不存在 下面的字段 则不会保存到goods数据库中
+							gooddoc.productNum = 1; // 加一个数量单位 默认为1
+							gooddoc.checked = 1; // 选中状态
 
-// 			}
-// 		}
-// 	})
+							// 加入到数据库中
+							userdoc.cartList.push(gooddoc);
+							userdoc.save(function(err2,doc2){
+								if(err2){
+									res.json({
+										status:"1",
+										msg:err2.message
+									})
+								}else{
+									res.json({
+										status:"0",
+										msg:'',
+										result:'success save'
+									})
+								}
+							})
+						}
+					}
+				})
+			}
+		}
+	})
 
-
-// })
+})
 
 module.exports = router;
